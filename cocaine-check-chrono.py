@@ -9,7 +9,11 @@ ENDPOINTS = [("localhost", 10053)]
 
 @gen.coroutine
 def main():
-    chrono = Service("chrono", endpoints=ENDPOINTS)
+    try:
+        chrono = Service("chrono", endpoints=ENDPOINTS)
+    except:
+        print "1; error while connect to service"
+        exit(1)
     chan = yield chrono.notify_after(0.1)
     try:
         id = yield chan.rx.get()
@@ -49,5 +53,9 @@ def main():
         exit(1)
     print "0;Ok"
 
-ioloop.IOLoop.current().run_sync(main, timeout=30)
+try:
+    ioloop.IOLoop.current().run_sync(main, timeout=30)
+except:
+    print "1; error while connect to service"
+    exit(1)
 
