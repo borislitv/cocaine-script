@@ -17,7 +17,10 @@ def main():
         chan = yield app.info()
         info = yield chan.rx.get()
         if info["queue"]["depth"] == info["queue"]["capacity"]:
-            print name
+            if name != "v012-karma":
+                print "2;",name
+                exit(0)
+    print ("0;Ok") 
 
 ioloop.IOLoop.current().run_sync(main, timeout=30)
 
