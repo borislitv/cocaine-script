@@ -6,12 +6,12 @@ from cocaine.services import Service
 
 @gen.coroutine
 def main():
+    chrono = Service("chrono")
     try:
-        chrono = Service("chrono")
+        chan = yield chrono.notify_after(0.1)
     except:
         print "1; error while connect to service"
         exit(1)
-    chan = yield chrono.notify_after(0.1)
     try:
         id = yield chan.rx.get()
         try:
@@ -46,8 +46,4 @@ def main():
         exit(1)
     print "0;Ok"
 
-try:
-    ioloop.IOLoop.current().run_sync(main, timeout=30)
-except:
-    print "1; error while connect to service"
-    exit(1)
+ioloop.IOLoop.current().run_sync(main, timeout=30)
