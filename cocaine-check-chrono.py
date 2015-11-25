@@ -2,7 +2,6 @@
 
 from tornado import gen
 from tornado import ioloop
-
 from cocaine.services import Service
 
 ENDPOINTS = [("localhost", 10053)]
@@ -42,7 +41,8 @@ def main():
         print "2; error while restart id on notify_every method"
         exit(1)
     try:
-        yield chrono.cancel(id)
+        chan = yield chrono.cancel(id)
+        yield chan.rx.get() 
     except:
         print "2; error while close id on notify_every method"
         exit(1)
