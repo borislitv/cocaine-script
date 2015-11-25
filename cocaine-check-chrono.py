@@ -4,12 +4,10 @@ from tornado import gen
 from tornado import ioloop
 from cocaine.services import Service
 
-ENDPOINTS = [("localhost", 10053)]
-
 @gen.coroutine
 def main():
     try:
-        chrono = Service("chrono", endpoints=ENDPOINTS)
+        chrono = Service("chrono")
     except:
         print "1; error while connect to service"
         exit(1)
