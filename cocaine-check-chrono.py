@@ -25,11 +25,6 @@ def main():
     except:
         print "2; error while read id on notify_after method"
         exit(1)
-    try:
-        yield chrono.cancel(id)
-    except:
-        print "2; error while close id on notify_after method"
-        exit(1)
     chan = yield chrono.notify_every(0.1)
     try:
         id = yield chan.rx.get()
@@ -58,4 +53,3 @@ try:
 except:
     print "1; error while connect to service"
     exit(1)
-
