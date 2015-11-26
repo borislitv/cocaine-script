@@ -6,8 +6,8 @@ from cocaine.services import Service
 
 @gen.coroutine
 def main():
-    warning = "1; "
-    error = "2; "
+    warning = "1; app status broken: "
+    error = "2; depth is full: "
     node = Service("node")
     try:
         chan = yield node.list()
@@ -22,12 +22,12 @@ def main():
             info = yield chan.rx.get()
             if info["queue"]["depth"] == info["queue"]["capacity"]:
                 if name != "v012-karma":
-                    error = error + name + ", "
+                    error = error + name + ","
         except:
-            warning = warning + name + ", "
-    if error != "2; ":
+            warning = warning + name + ","
+    if error != "2; depth is full: ":
         print (error)
-    elif warning != "1; ":
+    elif warning != "1; app status broken: ":
         print (warning)
     else:
         print ("0;Ok")
